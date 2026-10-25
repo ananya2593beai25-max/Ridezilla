@@ -1,0 +1,414 @@
+/* Styles added for the React version: auth pages, map picker, checkboxes, route animation, link rows. */
+
+/* Auth */
+.auth {
+  display: grid;
+  place-items: start center;
+  padding-block: clamp(32px, 6vw, 72px);
+}
+.auth__card {
+  display: grid;
+  gap: 18px;
+  width: min(100%, 480px);
+  padding: clamp(20px, 4vw, 32px);
+  border-radius: var(--radius-lg);
+}
+.auth__card h1 {
+  font-size: clamp(1.6rem, 3vw, 2rem);
+}
+
+.check,
+.radio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 32px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.check input,
+.radio input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+  flex: none;
+}
+.radio-group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.radio-group legend {
+  margin-bottom: 6px;
+  padding: 0;
+}
+
+/* Nav user chip */
+.nav-user {
+  margin-left: 8px;
+}
+
+/* Search card map */
+.map-pick {
+  display: grid;
+  gap: 10px;
+}
+.map-pick__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+}
+.mini-map--tall {
+  height: 260px;
+}
+.mini-map .map,
+.map-panel .map {
+  width: 100%;
+  height: 100%;
+}
+.map-pick__stats {
+  min-height: 1.4em;
+  font-size: 0.85rem;
+}
+.map-panel--static {
+  position: relative;
+  top: 0;
+  height: 280px;
+}
+.leaflet-container {
+  cursor: crosshair;
+}
+.mini-map .leaflet-container,
+.map-panel .leaflet-container {
+  cursor: grab;
+}
+
+/* Route line draws itself. pathLength is set to 1 in RideMap.jsx. */
+.route-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 1.4s var(--ease-out) forwards;
+}
+
+/* A whole row that is a link */
+.ride-row--link {
+  color: inherit;
+  text-decoration: none;
+}
+.ride-row--link:hover {
+  text-decoration: none;
+}
+ul.card.ride-list {
+  padding: 8px 20px;
+}
+
+/* Signed-in client pages (dashboard, bookings) use the normal header, so their content needs the same spacing as other pages. */
+.page-body {
+  padding-top: clamp(24px, 4vw, 40px);
+  padding-bottom: 64px;
+}
+
+/* Card for visitors who are not logged in */
+.guest-card__perks {
+  display: grid;
+  gap: 12px;
+}
+.guest-card__perks li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.guest-card__tick {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(61, 220, 151, 0.14);
+  color: var(--accent);
+}
+
+/* Booking page: a fixed bar with the total and the confirm button, shown on phones and small tablets only. */
+.book-bar {
+  display: none;
+}
+@media (max-width: 860px) {
+  .book-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--border-strong);
+    background: rgb(var(--surface-rgb) / 0.96);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  .book-bar__total {
+    display: grid;
+    line-height: 1.15;
+  }
+  .book-bar__total span {
+    font-size: 0.75rem;
+  }
+  .book-bar__total strong {
+    font-size: 1.4rem;
+  }
+  .book-bar .btn {
+    min-height: 44px;
+    padding: 0 22px;
+  }
+  .book-submit-inline {
+    display: none; /* the bar's button does this job on small screens */
+  }
+  .booking-grid--ordered {
+    padding-bottom: 96px;
+  }
+}
+
+/* A group of buttons. On a phone they sit two per row, equal width, instead of one under another. */
+.btn-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+@media (max-width: 560px) {
+  .btn-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .btn-grid .btn {
+    padding: 8px 6px;
+    font-size: 0.85rem;
+    line-height: 1.2;
+    text-align: center;
+    white-space: normal; /* a long label wraps inside its button instead of overflowing */
+  }
+}
+
+/* Two buttons side by side. On a phone they share the row equally instead of wrapping. */
+.cta-actions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+@media (min-width: 561px) {
+  .cta-actions {
+    width: auto;
+  }
+}
+@media (max-width: 560px) {
+  .cta-actions .btn {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-inline: 12px;
+    font-size: 0.92rem;
+  }
+  .cta-band {
+    padding: 24px 20px;
+  }
+}
+/* Very small phones (320px): tighten the buttons so both still fit in one row. */
+@media (max-width: 360px) {
+  .cta-actions {
+    gap: 8px;
+  }
+  .cta-actions .btn {
+    padding-inline: 8px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Hero stats: three big numbers */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+.stat {
+  display: grid;
+  gap: 8px;
+  padding: 18px 18px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(260px 120px at 0% 0%, rgba(61, 220, 151, 0.1), transparent 70%),
+    var(--surface);
+}
+.stat__value {
+  display: block;
+  font-size: clamp(2.6rem, 5.5vw, 3.8rem);
+  font-weight: 700;
+  line-height: 1;
+  background: linear-gradient(100deg, var(--accent), var(--info));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.stat__label {
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+/* Lettered badge in the pickup and drop-off boxes. The same A and B appear on the map pins. */
+.place-field__box {
+  position: relative;
+}
+.place-field__badge {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  margin-top: -11px; /* half the badge height, so it is centred in the input */
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  color: var(--accent-ink);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+}
+.place-field__badge--pickup {
+  background: var(--accent);
+}
+.place-field__badge--drop {
+  background: var(--info);
+}
+
+/* Map pins: a pin shape with the same letter */
+.map-pin-wrap {
+  background: none;
+  border: 0;
+}
+.map-pin {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--bg);
+  border-radius: 50% 50% 50% 0;
+  background: currentColor;
+  box-shadow: 0 4px 10px rgb(var(--shade) / 0.5);
+  transform: rotate(-45deg);
+}
+.map-pin i {
+  color: var(--accent-ink);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 700;
+  transform: rotate(45deg);
+}
+.map-pin--pickup {
+  color: var(--accent);
+}
+.map-pin--drop {
+  color: var(--info);
+}
+
+/* FilterBar: chips on laptops, a dropdown on phones */
+.filter-bar__select {
+  display: none;
+}
+@media (max-width: 560px) {
+  .filter-bar__chips {
+    display: none !important;
+  }
+  .filter-bar__select {
+    display: grid;
+    width: 100%;
+  }
+  .filter-bar__select .input {
+    min-height: 44px;
+  }
+}
+
+/* Date and time boxes: they may shrink to the column, so a long date no longer runs under the time box. */
+.search-row .field,
+.form-grid .field {
+  grid-template-columns: minmax(0, 1fr);
+}
+input[type="date"].input,
+input[type="time"].input {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Contact page: talk to the team */
+.talk {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+  padding: clamp(20px, 3vw, 32px);
+  border-color: rgba(61, 220, 151, 0.22);
+  background:
+    radial-gradient(420px 200px at 100% 0%, var(--accent-glow), transparent 70%),
+    var(--surface);
+}
+.talk__icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(61, 220, 151, 0.3);
+  border-radius: 14px;
+  background: rgba(61, 220, 151, 0.08);
+  color: var(--accent);
+}
+.talk__actions {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  margin-top: 6px;
+}
+
+/* Active ride card on the home page */
+.active-ride__when {
+  display: grid;
+  gap: 2px;
+}
+.active-ride__when strong {
+  color: var(--accent);
+  font-size: 2rem;
+  line-height: 1.1;
+}
+.active-ride__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.active-ride__actions .btn {
+  flex: 1 1 160px;
+}
+
+.upcoming {
+  margin-bottom: 16px;
+}
+.upcoming .ride-list {
+  padding: 0;
+}
+
+/* Header links are <a> from NavLink, which sets aria-current. */
+.nav-menu a.active {
+  color: var(--text);
+}

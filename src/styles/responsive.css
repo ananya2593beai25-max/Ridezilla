@@ -1,0 +1,545 @@
+/* Breakpoints: 1100 (laptop), 860 (tablet), 560 (phone).
+   On a phone the most important thing goes first: on Home the search form comes before the long intro,
+   on the booking page the fare comes before the form, and on the vehicle page the list scrolls inside its own panel. */
+
+@media (max-width: 1100px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .dash-row--chart,
+  .dash-row--lists {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .footer__top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .footer__brand {
+    grid-column: 1 / -1;
+  }
+  /* With two columns, the last block would sit alone in half a row. Let it use the full width. */
+  .footer__col:last-child {
+    grid-column: 1 / -1;
+  }
+  .hero__grid,
+  .split,
+  .booking-grid,
+  .contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .grid-3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .map-panel {
+    position: relative;
+    top: 0;
+    height: 320px;
+    order: -1;
+  }
+
+  /* Home: headline, then the search form, then the intro text and numbers.
+     display: contents lets the children of .hero__copy be ordered together with the form. */
+  .hero__grid {
+    row-gap: 20px;
+  }
+  .hero__copy {
+    display: contents;
+  }
+  .hero__copy .eyebrow {
+    order: 1;
+  }
+  .hero__copy h1 {
+    order: 2;
+  }
+  .hero__grid > .search-card {
+    order: 3;
+  }
+  .hero__copy > p {
+    order: 4;
+  }
+  .hero__copy .stats {
+    order: 5;
+  }
+
+  /* Booking page: trip, fare, form, then map and CO2 details. */
+  .booking-grid--ordered .stack {
+    display: contents;
+  }
+  /* A map that should come after the details on a phone (booking details). */
+  .m-last {
+    order: 99;
+  }
+  .map-panel--static {
+    height: 230px;
+  }
+  .m-o1 {
+    order: 1;
+  }
+  .m-o2 {
+    order: 2;
+  }
+  .m-o3 {
+    order: 3;
+  }
+  .m-o4 {
+    order: 4;
+  }
+  .m-o5 {
+    order: 5;
+  }
+
+  /* Vehicle page: a compact summary, a short map, and the list in its own scrolling panel. */
+  .rides-page {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - var(--nav-h) - 8px);
+    height: calc(100dvh - var(--nav-h) - 8px);
+    min-height: 540px;
+  }
+  .rides-page .page-head {
+    position: absolute; /* kept for screen readers, hidden to save space */
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  /* Route on the left, "Change Ride" on the right, details underneath. */
+  .rides-page .ride-bar {
+    flex: none;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    margin: 10px 0 8px;
+    padding: 10px 12px;
+    gap: 6px 10px;
+  }
+  .rides-page .ride-bar__route {
+    flex: none;
+    flex-wrap: wrap;
+    gap: 2px 8px;
+    font-size: 0.95rem;
+  }
+  /* Show the whole place name, over two lines if needed, instead of cutting it with "…". */
+  .rides-page .ride-bar__route span {
+    overflow: visible;
+    white-space: normal;
+    text-overflow: clip;
+  }
+  .rides-page .ride-bar__meta {
+    grid-column: 1 / -1;
+    gap: 6px;
+  }
+  .rides-page .ride-bar__meta .chip {
+    padding: 2px 8px;
+    font-size: 0.72rem;
+  }
+  .rides-page .ride-bar .btn {
+    grid-column: 2;
+    grid-row: 1;
+    min-height: 32px;
+    padding: 0 12px;
+    font-size: 0.8rem;
+  }
+  .rides-page .split {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* the desktop rule says start, which would shrink the map to nothing */
+    gap: 10px;
+    padding-bottom: 12px;
+  }
+  /* Leave room for the fixed "Continue" bar only while a vehicle is selected. */
+  .rides-page:has(.select-bar:not([hidden])) .split {
+    padding-bottom: 76px;
+  }
+  .rides-page .map-panel {
+    flex: none;
+    height: 22vh;
+    min-height: 120px;
+    max-height: 190px;
+  }
+  .vehicle-sheet {
+    flex: 1;
+    min-height: 0;
+    padding: 0 12px 12px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border: 1px solid var(--border-strong);
+    border-radius: 20px;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) transparent;
+  }
+  .vehicle-sheet::-webkit-scrollbar {
+    width: 6px;
+  }
+  .vehicle-sheet::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: var(--accent);
+  }
+  /* Filters and sort stay in view while the list scrolls under them. */
+  .vehicle-sheet .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    margin: 0 -12px 12px;
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  /* Header menu becomes a drop-down panel */
+  .nav-toggle {
+    display: inline-grid;
+  }
+  .nav-menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--nav-h);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding: 12px var(--gutter) 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition:
+      opacity var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out),
+      visibility 0s linear var(--dur-base);
+  }
+  .nav-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
+  .nav-menu a:not(.btn) {
+    padding: 14px 16px;
+  }
+  .nav-menu .btn {
+    margin: 8px 0 0;
+  }
+
+  /* Admin: the sidebar gives way to the top bar and its hamburger menu (see staff.css).
+     The grid is at least one screen tall. Without these two lines, a short page leaves free space
+     and the grid shares it between the rows, which stretched the top bar to three times its height. */
+  .app {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    align-content: start;
+  }
+  .staff-topbar {
+    align-self: start;
+  }
+  .sidebar {
+    display: none;
+  }
+  .app-main {
+    padding-bottom: 48px;
+  }
+}
+
+@media (max-width: 560px) {
+  h1 {
+    font-size: clamp(1.9rem, 8.5vw, 2.3rem);
+  }
+  .section {
+    padding-block: 36px;
+  }
+  /* Passengers on its own row, then date and time side by side. */
+  .search-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .search-row > :first-child {
+    grid-column: 1 / -1;
+  }
+  .form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .grid-4 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Page title on the left, its main button stays on the right, like on a laptop. */
+  .app-top {
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .app-top > :first-child {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .app-top > .btn,
+  .app-top > .chip {
+    flex: none;
+  }
+  .app-top > .btn {
+    min-height: 40px;
+    padding: 0 16px;
+    font-size: 0.9rem;
+  }
+  .app-top h1 {
+    font-size: 1.6rem;
+  }
+  .app-top p {
+    font-size: 0.9rem;
+  }
+  .page-head {
+    padding-block: 20px 12px;
+  }
+  .page-head h1 {
+    font-size: 1.6rem;
+  }
+
+  /* Dashboard numbers: two per row, the first one full width. */
+  .kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .kpi-grid > :first-child {
+    grid-column: 1 / -1;
+  }
+  /* With four tiles, the last one would sit alone in half a row, so it takes the whole row. */
+  .kpi-grid > :last-child:nth-child(even) {
+    grid-column: 1 / -1;
+  }
+  .kpi {
+    gap: 6px;
+    padding: 14px;
+  }
+  .kpi__value {
+    font-size: 1.8rem;
+  }
+  .kpi__label {
+    font-size: 0.8rem;
+  }
+
+  /* Detail lists (ride summary, fare): tighter rows, so the important lines sit higher. */
+  .summary-list > div {
+    padding: 8px 0;
+    font-size: 0.92rem;
+  }
+  .summary-list .total dd {
+    font-size: 1.3rem;
+  }
+  .card {
+    padding: 18px;
+  }
+
+  /* Vehicle card, compact:
+       [icon] name and chips ......... price
+       [ saving chip ] ............... [Select]
+     display: contents lets the pieces inside main and side be placed on one shared grid. */
+  .vehicle-card {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 8px 12px;
+    align-items: center;
+    padding: 12px;
+  }
+  .vehicle-card__main,
+  .vehicle-card__side {
+    display: contents;
+  }
+  .vehicle-card__icon {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+  .vehicle-card__icon svg {
+    width: 32px;
+    height: 32px;
+  }
+  .vehicle-card__top {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+  }
+  .vehicle-card__top h3 {
+    font-size: 1rem;
+  }
+  .vehicle-card__meta {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+    gap: 4px;
+  }
+  .vehicle-card__meta .chip {
+    padding: 1px 7px;
+    font-size: 0.7rem;
+  }
+  .vehicle-card__side .price {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    justify-self: end;
+    font-size: 1.3rem;
+  }
+  .vehicle-card .compare {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    gap: 0;
+  }
+  .vehicle-card .compare__text {
+    display: none; /* the saving chip below already says this */
+  }
+  .vehicle-card__side .chip {
+    grid-column: 1 / 3;
+    grid-row: 4;
+    justify-self: start;
+  }
+  .vehicle-card__side .btn {
+    grid-column: 3;
+    grid-row: 4;
+    min-height: 36px;
+    padding: 0 18px;
+  }
+
+  /* Filters and sort in one short row, so the list gets the space. */
+  .vehicle-sheet .toolbar {
+    flex-wrap: nowrap;
+    gap: 8px;
+    margin: 0 -12px 10px;
+    padding: 10px 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .vehicle-sheet .toolbar::-webkit-scrollbar {
+    display: none;
+  }
+  .vehicle-sheet .filters {
+    flex-wrap: nowrap;
+    flex: none;
+  }
+  .vehicle-sheet .filter-chip {
+    min-height: 34px;
+    padding: 0 12px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+  /* The type filter and the sort box share the row, half each. */
+  .vehicle-sheet .toolbar {
+    overflow-x: visible;
+  }
+  .vehicle-sheet .toolbar .field {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .vehicle-sheet .select--inline {
+    width: 100%;
+  }
+  .vehicle-sheet .toolbar .input {
+    min-height: 38px;
+    font-size: 0.85rem;
+  }
+  .vehicle-sheet .toolbar .field label {
+    position: absolute; /* hidden, but still read by screen readers */
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .vehicle-sheet .select-inline {
+    min-height: 34px;
+    font-size: 0.8rem;
+  }
+
+  /* Rows in lists: the label goes under the text, and the route can use two lines. */
+  .ride-row,
+  .ride-row--two {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 4px 12px;
+  }
+  .ride-row--two {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ride-row__chip {
+    grid-column: 2;
+    justify-self: start;
+    text-align: left;
+  }
+  .ride-row--two > .chip,
+  .ride-row--two > .badge-count {
+    justify-self: start;
+  }
+  .ride-row__route {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+  }
+
+  .select-bar {
+    padding-block: 10px calc(10px + env(safe-area-inset-bottom));
+  }
+  .select-bar__inner {
+    gap: 12px;
+  }
+  .select-bar__inner .btn {
+    min-height: 42px;
+    padding: 0 16px;
+    font-size: 0.9rem;
+  }
+  .select-bar__info strong {
+    font-size: 0.95rem;
+  }
+  .select-bar__info span {
+    font-size: 0.78rem;
+  }
+}
+
+/* Very narrow phones: the type and sort boxes get less padding, so "All vehicles" and "Most CO₂ Saved" are not cut short. */
+@media (max-width: 400px) {
+  .vehicle-sheet .toolbar .input {
+    padding-left: 10px;
+    padding-right: 28px;
+    font-size: 0.8rem;
+  }
+  .vehicle-sheet .toolbar .select__arrow {
+    right: 8px;
+  }
+}
+
+/* The vehicle card on a 320px phone: a smaller icon and price, so the name has room to wrap on whole words. */
+@media (max-width: 400px) {
+  .vehicle-card {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 8px 10px;
+    padding: 10px;
+  }
+  .vehicle-card__icon {
+    width: 38px;
+    height: 38px;
+  }
+  .vehicle-card__icon svg {
+    width: 26px;
+    height: 26px;
+  }
+  .vehicle-card__side .price {
+    font-size: 1.1rem;
+  }
+  .vehicle-card__top h3 {
+    font-size: 0.95rem;
+    overflow-wrap: normal;
+  }
+  /* The Select button sets the width of the price column, so it stays small. */
+  .vehicle-card__side .btn {
+    min-height: 34px;
+    padding: 0 12px;
+    font-size: 0.8rem;
+  }
+}

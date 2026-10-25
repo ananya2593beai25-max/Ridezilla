@@ -1,0 +1,59 @@
+{
+  "_note": "Fare is ratePerKm x road distance, with a minimum fare. Emission factors are illustrative grid-adjusted estimates (India grid about 0.7 kg CO2 per kWh). Replace with sourced values and cite them in the README. Travel time is distance divided by avgSpeedKmh. maxKm is the longest ride a vehicle takes (cars have no limit).",
+  "vehicles": [
+    {
+      "id": "ebike",
+      "name": "E-Bike",
+      "type": "bike",
+      "seats": 1,
+      "ratePerKm": 6,
+      "minFare": 20,
+      "gramsPerKm": 14,
+      "baselineGramsPerKm": 150,
+      "baselineLabel": "petrol car",
+      "etaMin": 3,
+      "avgSpeedKmh": 45,
+      "maxKm": 20
+    },
+    {
+      "id": "erickshaw",
+      "name": "E-Rickshaw",
+      "type": "rickshaw",
+      "seats": 3,
+      "ratePerKm": 9,
+      "minFare": 30,
+      "gramsPerKm": 56,
+      "baselineGramsPerKm": 150,
+      "baselineLabel": "petrol car",
+      "etaMin": 5,
+      "avgSpeedKmh": 35,
+      "maxKm": 10
+    },
+    {
+      "id": "ecar-hatch",
+      "name": "Electric Hatchback",
+      "type": "car",
+      "seats": 4,
+      "ratePerKm": 14,
+      "minFare": 60,
+      "gramsPerKm": 91,
+      "baselineGramsPerKm": 150,
+      "baselineLabel": "petrol car",
+      "etaMin": 7,
+      "avgSpeedKmh": 60
+    },
+    {
+      "id": "ecar-suv",
+      "name": "Electric SUV",
+      "type": "car",
+      "seats": 6,
+      "ratePerKm": 19,
+      "minFare": 90,
+      "gramsPerKm": 140,
+      "baselineGramsPerKm": 210,
+      "baselineLabel": "petrol SUV",
+      "etaMin": 9,
+      "avgSpeedKmh": 60
+    }
+  ]
+}

@@ -1,0 +1,1009 @@
+/* Reusable pieces: suggestions, stepper, vehicle cards, map pins, comparison bars,
+   confirmation, dashboard widgets and FAQ. */
+
+/* ---------- Place suggestions ---------- */
+.suggestions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 50;
+  max-height: 280px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 6px;
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  background: var(--surface-3);
+  box-shadow: var(--shadow);
+}
+.suggestion {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.suggestion.is-active,
+.suggestion:hover {
+  background: rgba(61, 220, 151, 0.1);
+}
+.suggestion__icon {
+  flex: none;
+  color: var(--muted);
+}
+.suggestion__text {
+  display: grid;
+  min-width: 0;
+}
+.suggestion__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+.suggestion__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.suggestion-note {
+  padding: 8px 12px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* ---------- Passenger stepper ---------- */
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  padding: 0 6px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-2);
+}
+.stepper button {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+.stepper button:hover:not([disabled]) {
+  background: rgb(var(--wash) / 0.08);
+}
+.stepper button:active:not([disabled]) {
+  transform: scale(0.92);
+}
+.stepper button[disabled] {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.stepper output {
+  min-width: 2ch;
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ---------- Notices ---------- */
+.notice {
+  display: flex;
+  gap: 12px;
+  align-items: start;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.notice--warn {
+  border-color: rgba(245, 158, 11, 0.3);
+  background: rgba(245, 158, 11, 0.07);
+  color: var(--warn-ink);
+}
+.notice--error {
+  border-color: rgba(248, 113, 113, 0.35);
+  background: rgba(248, 113, 113, 0.07);
+  color: var(--danger-ink);
+}
+.empty {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 40px 20px;
+  text-align: center;
+}
+.empty p {
+  max-width: 380px;
+  color: var(--muted);
+}
+
+/* ---------- Filter chips ---------- */
+.filter-chip {
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
+}
+.filter-chip:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+.filter-chip[aria-pressed="true"] {
+  border-color: rgba(61, 220, 151, 0.45);
+  background: rgba(61, 220, 151, 0.12);
+  color: var(--accent);
+}
+.select-inline {
+  min-height: 38px;
+  width: auto;
+  padding-right: 8px;
+  font-size: 0.85rem;
+}
+
+/* ---------- Vehicle card ---------- */
+.vehicle-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  padding: 18px 20px;
+}
+.vehicle-card.is-selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 14px 40px var(--accent-glow);
+}
+.vehicle-card__icon {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-2);
+  color: var(--accent);
+}
+.vehicle-card__main {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+.vehicle-card__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+}
+.vehicle-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.vehicle-card__side {
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+}
+.price {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+/* Petrol vs EV bars */
+.compare {
+  display: grid;
+  gap: 6px;
+}
+.compare__bar {
+  position: relative;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(245, 158, 11, 0.22);
+}
+.compare__bar > span {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent-strong), var(--accent));
+  transform-origin: left center;
+  transform: scaleX(var(--w, 0.5));
+  animation: grow 900ms var(--ease-out) both;
+}
+.compare__text {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+@keyframes grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* ---------- Map pins ---------- */
+.pin-wrap {
+  background: none;
+  border: 0;
+}
+.pin {
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 4px solid var(--bg);
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 2px currentColor;
+}
+.pin::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.35;
+  animation: pulse 2.2s ease-out infinite;
+}
+.pin--pickup {
+  color: var(--accent);
+}
+.pin--drop {
+  color: var(--info);
+}
+@keyframes pulse {
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.leaflet-container {
+  background: var(--map-bg);
+  font-family: var(--font-body);
+}
+/* Dark map from standard OSM tiles: invert, rotate hue back, then tone down. Markers and the route are not in the tile pane. */
+.leaflet-tile-pane {
+  filter: var(--tile-filter);
+}
+.leaflet-control-zoom a {
+  border-color: var(--border) !important;
+  background: var(--surface-2) !important;
+  color: var(--text) !important;
+}
+.leaflet-control-attribution {
+  background: rgb(var(--bg-rgb) / 0.72) !important;
+  color: var(--muted) !important;
+  font-size: 10px;
+}
+.leaflet-control-attribution a {
+  color: var(--text) !important;
+}
+
+/* ---------- Summary list ---------- */
+.summary-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+}
+.summary-list > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.summary-list > div:last-child {
+  border-bottom: 0;
+}
+.summary-list dt {
+  color: var(--muted);
+}
+.summary-list dd {
+  margin: 0;
+  min-width: 0;
+  text-align: right;
+  font-weight: 500;
+}
+.summary-list .total dd {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.co2-hero {
+  display: grid;
+  gap: 6px;
+  padding: 20px;
+  border: 1px solid rgba(61, 220, 151, 0.25);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(420px 200px at 0% 0%, var(--accent-glow), transparent 70%),
+    var(--surface-2);
+}
+.co2-hero strong {
+  color: var(--accent);
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  line-height: 1;
+}
+.compare-rows {
+  display: grid;
+  gap: 14px;
+}
+.compare-row {
+  display: grid;
+  gap: 6px;
+}
+.compare-row__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.9rem;
+}
+.compare-row__bar {
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgb(var(--wash) / 0.06);
+}
+.compare-row__bar > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  transform-origin: left center;
+  transform: scaleX(var(--w, 1));
+  animation: grow 1000ms var(--ease-out) both;
+}
+.bar--petrol {
+  background: var(--warn);
+}
+.bar--ev {
+  background: var(--accent);
+}
+.bar--info {
+  background: var(--info);
+}
+
+/* ---------- Confirmation ---------- */
+.confirm {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  padding: clamp(24px, 4vw, 40px);
+  text-align: center;
+}
+.confirm__check {
+  width: 84px;
+  height: 84px;
+}
+.confirm__check circle {
+  fill: rgba(61, 220, 151, 0.1);
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-dasharray: 227;
+  stroke-dashoffset: 227;
+  animation: draw 700ms var(--ease-out) forwards;
+}
+.confirm__check path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  animation: draw 500ms 450ms var(--ease-out) forwards;
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.confirm__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* ---------- Hero sample ride ---------- */
+.sample-ride {
+  display: grid;
+  gap: 18px;
+}
+.sample-ride__route {
+  display: grid;
+  gap: 10px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface-2);
+  font-size: 0.9rem;
+}
+.sample-ride__stop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sample-ride__dot {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.sample-ride__line {
+  width: 2px;
+  height: 14px;
+  margin-left: 4px;
+  background: linear-gradient(var(--accent), var(--info));
+  opacity: 0.6;
+}
+
+.type-card {
+  display: grid;
+  gap: 4px;
+}
+.type-card__icon {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-2);
+  color: var(--accent);
+}
+.type-card .chip {
+  margin-top: 12px;
+  width: fit-content;
+}
+
+/* ---------- Dashboard widgets ---------- */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.kpi {
+  display: grid;
+  gap: 8px;
+  padding: 20px;
+}
+.kpi__label {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.kpi__value {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  line-height: 1;
+}
+.kpi__value small {
+  margin-left: 4px;
+  color: var(--muted);
+  font-size: 0.45em;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.kpi--hero {
+  border-color: rgba(61, 220, 151, 0.28);
+  background:
+    radial-gradient(360px 200px at 0% 0%, var(--accent-glow), transparent 72%),
+    var(--surface);
+}
+.kpi--hero .kpi__value {
+  color: var(--accent);
+}
+
+.dash-row {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.dash-row--chart {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+}
+.dash-row--lists {
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+}
+.card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.card__head h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.chart {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.chart text {
+  fill: var(--muted);
+  font-family: var(--font-body);
+  font-size: 11px;
+}
+.chart .grid-line {
+  stroke: rgb(var(--wash) / 0.07);
+  stroke-width: 1;
+}
+.chart .area {
+  fill: url(#area-fill);
+  animation: fade-in 900ms 300ms var(--ease-out) both;
+}
+.chart .line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: var(--len, 1000);
+  stroke-dashoffset: var(--len, 1000);
+  animation: draw 1400ms var(--ease-out) forwards;
+}
+.chart .dot {
+  fill: var(--bg);
+  stroke: var(--accent);
+  stroke-width: 2;
+  animation: fade-in 600ms 900ms var(--ease-out) both;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.ring-wrap {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  text-align: center;
+}
+.ring {
+  position: relative;
+  width: 168px;
+  height: 168px;
+}
+.ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.ring circle {
+  fill: none;
+  stroke-width: 10;
+}
+.ring .ring__track {
+  stroke: rgb(var(--wash) / 0.07);
+}
+.ring .ring__value {
+  stroke: var(--accent);
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 1.4s var(--ease-out);
+}
+.ring.is-in .ring__value {
+  stroke-dashoffset: calc(100 - var(--p, 0) * 100);
+}
+.ring__label {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+.ring__label strong {
+  font-size: 1.5rem;
+  line-height: 1.1;
+}
+.ring__label span {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.ride-list {
+  display: grid;
+}
+.ride-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 8px;
+  margin-inline: -8px;
+  border-radius: 12px;
+  transition: background-color var(--dur-base) var(--ease-out);
+}
+.ride-row:hover {
+  background: rgb(var(--wash) / 0.04);
+}
+.ride-row + .ride-row {
+  border-top: 1px solid var(--border);
+}
+.ride-row__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: var(--accent);
+}
+.ride-row__icon svg {
+  width: 30px;
+  height: 30px;
+}
+.ride-row__text {
+  display: grid;
+  min-width: 0;
+}
+.ride-row__route {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+.ride-row__meta {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.ride-row__chip {
+  text-align: right;
+}
+
+.donut-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+.donut {
+  flex: none;
+  width: 132px;
+  height: 132px;
+  transform: rotate(-90deg);
+}
+.donut circle {
+  fill: none;
+  stroke-width: 14;
+  transition: stroke-dasharray 1.1s var(--ease-out);
+}
+.legend {
+  display: grid;
+  gap: 8px;
+  font-size: 0.88rem;
+}
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.legend i {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+/* "My location" button on a map: top right, so it does not sit on the zoom buttons at the top left. */
+.map-locate {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+.map-locate:hover:not([disabled]) {
+  background: var(--surface-3);
+  color: var(--accent);
+}
+.map-locate:active {
+  transform: scale(0.94);
+}
+.map-locate[disabled] {
+  cursor: progress;
+}
+
+.mini-map {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--surface-2);
+}
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+.badge.is-earned {
+  border-color: rgba(61, 220, 151, 0.35);
+  background: rgba(61, 220, 151, 0.1);
+  color: var(--accent);
+}
+
+/* ---------- FAQ ---------- */
+.faq {
+  display: grid;
+  gap: 10px;
+}
+.faq details {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+.faq details[open] {
+  border-color: var(--border-strong);
+}
+.faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+.faq summary::after {
+  content: "+";
+  flex: none;
+  color: var(--accent);
+  font-size: 1.3rem;
+  line-height: 1;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.faq details[open] summary::after {
+  transform: rotate(45deg);
+}
+.faq details > div {
+  padding: 0 18px 18px;
+  color: var(--muted);
+}
+.formula {
+  display: block;
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 0.82rem;
+  overflow-x: auto;
+}
+
+/* Simulated driver on the map */
+.driver-marker {
+  transition: transform 1s linear;
+}
+.driver-dot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 3px solid var(--bg);
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: 0 4px 12px rgb(var(--shade) / 0.35);
+}
+.driver-dot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  opacity: 0.6;
+  animation: pulse 1.8s ease-out infinite;
+}
+.tracking-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  padding: 10px 14px;
+  border: 1px solid rgba(61, 220, 151, 0.3);
+  border-radius: 12px;
+  background: rgba(61, 220, 151, 0.08);
+  font-size: 0.9rem;
+}
+.tracking-note__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 1.8s ease-out infinite;
+}
+.tracking-note__chip {
+  margin-left: auto;
+  font-size: 0.72rem;
+}
+.map-panel__note {
+  position: absolute;
+  inset: auto 10px 10px 10px;
+  z-index: 500;
+}
+.map-panel__note .tracking-note {
+  background: rgb(var(--surface-rgb) / 0.92);
+  backdrop-filter: blur(8px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .driver-marker {
+    transition: none;
+  }
+  .driver-dot::after,
+  .tracking-note__dot {
+    animation: none;
+  }
+}
+
+/* Notice for a good result */
+.notice--ok {
+  border-color: rgba(61, 220, 151, 0.35);
+  background: rgba(61, 220, 151, 0.1);
+  color: var(--text);
+}
+
+/* Login rows: show password on the left, forgot password on the right */
+.auth__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+.link-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* Account page */
+.account__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 20px;
+  align-items: start;
+  padding-bottom: 72px;
+}
+@media (max-width: 860px) {
+  .account__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Eco levels: a ladder, not buttons */
+.level-ladder {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.level-ladder__step {
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.level-ladder__mark {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 50%;
+  font-size: 0.7rem;
+  line-height: 1;
+}
+.level-ladder__step.is-earned {
+  color: var(--text);
+}
+.level-ladder__step.is-earned .level-ladder__mark {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.level-ladder__step.is-current {
+  border-color: rgba(61, 220, 151, 0.4);
+  background: rgba(61, 220, 151, 0.08);
+  font-weight: 600;
+}
+.level-ladder__kg {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+.level-ladder__note {
+  font-size: 0.82rem;
+  text-align: left;
+}
+
+/* Form: the hint under two fields sits across the full width, and fields start at the top of their row */
+.form-grid {
+  align-items: start;
+}
+.form-grid__hint {
+  margin-top: -4px;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+.level-ladder__step {
+  text-align: left;
+}
+
+/* A vehicle that does not take this ride (too far for an e-bike or an e-rickshaw) */
+.vehicle-card.is-unavailable {
+  opacity: 0.62;
+}
+.vehicle-card.is-unavailable:hover {
+  translate: none;
+  box-shadow: none;
+}

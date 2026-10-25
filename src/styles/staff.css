@@ -1,0 +1,1502 @@
+/* Admin panel, driver panel, support chat and the small pieces they share.
+   Colours and spacing come from the tokens in base.css, so everything keeps the same dark look. */
+
+/* Count badge */
+.badge-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.side-nav a .badge-count {
+  margin-left: auto;
+}
+
+/* Text-style button used inline in a sentence */
+.link-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.btn--danger {
+  background: rgba(248, 113, 113, 0.12);
+  border-color: rgba(248, 113, 113, 0.4);
+  color: var(--danger-ink);
+}
+.btn--danger:hover:not([disabled]) {
+  background: rgba(248, 113, 113, 0.2);
+}
+/* Coloured action buttons: the colour says what the button does. */
+.btn--ok {
+  background: rgba(61, 220, 151, 0.12);
+  border-color: rgba(61, 220, 151, 0.4);
+  color: var(--accent);
+}
+.btn--ok:hover:not([disabled]) {
+  background: rgba(61, 220, 151, 0.2);
+}
+.btn--info {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: var(--info-ink);
+}
+.btn--info:hover:not([disabled]) {
+  background: rgba(56, 189, 248, 0.2);
+}
+.btn--warn {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: var(--warn-ink);
+}
+.btn--warn:hover:not([disabled]) {
+  background: rgba(245, 158, 11, 0.2);
+}
+/* A button waiting for its second click ("Click Again to Remove") is filled, so it is hard to miss. */
+.btn.is-armed {
+  background: rgba(248, 113, 113, 0.3);
+  border-color: var(--danger);
+  color: var(--danger-ink);
+}
+
+/* Number plate */
+.plate {
+  display: inline-block;
+  width: fit-content;
+  padding: 4px 10px;
+  border: 2px solid #f5c518;
+  border-radius: 8px;
+  background: #1a1608;
+  color: #f5d96b;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+.plate--small {
+  padding: 1px 7px;
+  border-width: 1px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+}
+
+/* Vehicle and driver block shown to the client */
+.assignment {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.assignment__item {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  padding: 14px 16px;
+  border: 1px solid rgba(61, 220, 151, 0.25);
+  border-radius: 14px;
+  background:
+    radial-gradient(260px 120px at 0% 0%, var(--accent-glow), transparent 70%),
+    var(--surface-2);
+}
+.assignment__label {
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Staff pages */
+.staff .kpi-grid--5 {
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+.staff a.kpi {
+  color: inherit;
+  text-decoration: none;
+}
+.two-col {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 16px;
+  align-items: start;
+}
+.ride-row--two {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+.reason-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: start;
+}
+.reason-form .btn {
+  margin-top: 24px;
+}
+.reason-form--stack {
+  grid-template-columns: minmax(0, 1fr);
+}
+.reason-form--stack .btn {
+  margin-top: 0;
+}
+.btn-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* People and vehicles list */
+.people {
+  display: grid;
+}
+.person {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  padding: 14px 0;
+}
+.person + .person {
+  border-top: 1px solid var(--border);
+}
+.person.is-off {
+  opacity: 0.6;
+}
+.person__main {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  font-size: 0.9rem;
+}
+.person__main strong {
+  font-size: 1rem;
+}
+.person__side {
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+}
+
+.person__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Pricing: a stack of cards on a laptop, a swipe row on a phone */
+.rate-carousel {
+  display: grid;
+  gap: 16px;
+}
+.rate-dots {
+  display: none;
+}
+.rate-explain {
+  grid-column: 1 / -1;
+  padding: 14px 16px;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 12px;
+  background: rgba(56, 189, 248, 0.07);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.rate-explain p {
+  margin: 0;
+}
+.rate-explain ul {
+  display: grid;
+  gap: 4px;
+  margin: 8px 0 0;
+  padding-left: 18px;
+  list-style: disc;
+}
+.rate-explain strong {
+  color: var(--text);
+}
+.rate-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 16px 24px;
+  align-items: center;
+}
+.rate-row__head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.rate-row__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface-2);
+  color: var(--accent);
+}
+.rate-row__fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+.rate-row__save {
+  grid-column: 1 / -1;
+}
+@media (max-width: 1279px) {
+  /* Beside the sidebar there is no room for the name and the fields on one line. */
+  .rate-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 560px) {
+  .rate-row__fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rate-row__fields .btn {
+    margin-top: 0 !important;
+  }
+
+  /* Swipe row: each card snaps into place, and the next one peeks in from the right. */
+  .rate-carousel {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+    margin-inline: -16px;
+    padding: 4px 16px 10px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 16px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .rate-carousel::-webkit-scrollbar {
+    display: none;
+  }
+  .rate-carousel > .rate-row {
+    flex: 0 0 calc(100% - 36px);
+    scroll-snap-align: start;
+    align-content: start;
+  }
+  .rate-dots {
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    margin-top: 6px;
+  }
+  .rate-dots__label {
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .rate-dots__row {
+    display: flex;
+    gap: 8px;
+  }
+  .rate-dot {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: var(--surface-3);
+    transition:
+      width var(--dur-base) var(--ease-out),
+      background-color var(--dur-base) var(--ease-out);
+  }
+  .rate-dot[aria-current="true"] {
+    width: 26px;
+    background: var(--accent);
+  }
+}
+
+/* Table */
+.table-wrap {
+  padding: 4px 8px;
+  overflow-x: auto;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.table th {
+  padding: 12px 10px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.table td {
+  padding: 12px 10px;
+  border-top: 1px solid var(--border);
+  vertical-align: top;
+}
+.table tbody tr {
+  transition: background-color var(--dur-base) var(--ease-out);
+}
+.table tbody tr:hover {
+  background: rgb(var(--wash) / 0.03);
+}
+.table__row--click {
+  cursor: pointer;
+}
+.table__link {
+  color: var(--text);
+  font-weight: 600;
+}
+.table__route {
+  min-width: 200px;
+}
+
+/* Staff login */
+.staff-login {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 24px var(--gutter);
+}
+.staff-login__brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Support: list and chat */
+.support {
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  padding-bottom: 48px;
+}
+.support__list {
+  position: sticky;
+  top: 16px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.ticket-list {
+  display: grid;
+  gap: 6px;
+}
+.ticket {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  color: var(--text);
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+}
+.ticket:hover {
+  background: rgb(var(--wash) / 0.04);
+  text-decoration: none;
+}
+.ticket.is-active {
+  border-color: rgba(61, 220, 151, 0.35);
+  background: rgba(61, 220, 151, 0.08);
+}
+.ticket__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.ticket__subject {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.95rem;
+}
+.ticket__meta {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 2px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+.dot--open {
+  background: var(--warn);
+}
+.dot--in_progress {
+  background: var(--accent);
+}
+
+/* A column: the header and the message box keep their size, the message list takes the rest and scrolls.
+   (A grid with fixed rows broke when the header grew on a phone, or the "resolved" bar appeared.) */
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: min(74vh, 680px);
+  min-height: 420px;
+  padding: 0;
+}
+.chat__head,
+.chat__note,
+.chat__closed,
+.chat__form {
+  flex: none;
+}
+.chat__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px 0;
+}
+.chat__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1.15rem;
+}
+.chat__meta {
+  margin-top: 4px;
+  font-size: 0.82rem;
+}
+.chat__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.chat__back {
+  display: none;
+  min-height: 34px;
+  margin-bottom: 8px;
+  padding: 0 14px;
+}
+.chat__list {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 4px 20px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.chat__msg {
+  display: grid;
+  gap: 4px;
+  max-width: min(78%, 520px);
+  align-self: flex-start;
+}
+.chat__msg--me {
+  align-self: flex-end;
+  justify-items: end;
+}
+.chat__bubble {
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 16px 16px 16px 4px;
+  background: var(--surface-3);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.chat__msg--me .chat__bubble {
+  border-color: rgba(61, 220, 151, 0.3);
+  border-radius: 16px 16px 4px 16px;
+  background: rgba(61, 220, 151, 0.14);
+}
+.chat__by {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+.chat__system {
+  align-self: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+.chat__note {
+  padding: 0 20px;
+  font-size: 0.85rem;
+}
+.chat__form {
+  display: flex;
+  align-items: start;
+  gap: 10px;
+  padding: 0 20px 14px;
+}
+textarea.chat__input {
+  height: 48px;
+  min-height: 48px;
+  max-height: 140px;
+  line-height: 1.4;
+  overflow-y: hidden;
+  padding: 12px 14px;
+  resize: none;
+}
+.chat__send {
+  min-height: 48px;
+  margin-top: 0;
+}
+.chat__input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.chat__closed {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 14px;
+  padding: 0 20px 6px;
+}
+.chat__closed .chat__note {
+  padding: 0;
+  margin: 0;
+}
+
+/* Stops the page behind a dialog from scrolling */
+body.no-scroll {
+  overflow: hidden;
+}
+
+/* Centred dialog */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 960;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(var(--shade) / 0.7);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  animation: fade-in var(--dur-base) var(--ease-out);
+}
+.modal__panel {
+  position: relative;
+  width: min(100%, 480px);
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: var(--shadow);
+  animation: pop-in var(--dur-base) var(--ease-out);
+}
+.modal__panel:focus {
+  outline: none;
+}
+.modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.modal__head h2 {
+  font-size: 1.25rem;
+}
+@keyframes sheet-in {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+
+/* Login details box inside the dialog */
+.cred {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface-2);
+}
+.cred > div {
+  display: grid;
+  gap: 4px;
+  padding: 12px 16px;
+}
+.cred > div + div {
+  border-top: 1px solid var(--border);
+}
+.cred dt {
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.cred dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-weight: 500;
+}
+.cred__secret {
+  color: var(--accent);
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  user-select: all;
+}
+
+/* Form popup (components/FormSheet.jsx): centred on a laptop, rising from the bottom on a phone. Closed until opened. */
+.sheet {
+  display: none;
+}
+.sheet.is-open {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 950;
+}
+.sheet__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(var(--shade) / 0.7);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  animation: fade-in var(--dur-base) var(--ease-out);
+}
+.sheet__panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: min(560px, calc(100% - 32px));
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 24px;
+  border: 1px solid var(--border-strong);
+  border-radius: 22px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  animation: pop-in var(--dur-base) var(--ease-out);
+}
+.sheet__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.sheet__head h2 {
+  font-size: 1.25rem;
+}
+/* The popup already has a title, so the card inside drops its own frame and heading. */
+.sheet__panel > .card {
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+.sheet__panel > .card .card__head {
+  display: none;
+}
+.sheet__open-btn {
+  flex: none;
+}
+
+/* Lists of drivers and vehicles: search and filters, a table on a laptop, cards on a phone, then page controls */
+.list-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin-bottom: 20px;
+}
+.list-toolbar .field--search {
+  flex: 1 1 260px;
+  max-width: 400px;
+}
+.list-toolbar .field--category {
+  flex: 0 1 220px;
+}
+.list-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 4px 0 14px;
+  font-size: 1.2rem;
+}
+.list-heading .muted {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+.data-cards {
+  display: none;
+}
+.mono {
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.col-actions {
+  text-align: right;
+}
+.row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+@media (min-width: 1280px) {
+  /* Enough room beside the sidebar for the action buttons to stay in one line. */
+  .row-actions {
+    flex-wrap: nowrap;
+  }
+}
+.row-actions .btn,
+.record-card__actions .btn {
+  min-height: 36px;
+  padding: 0 14px;
+  font-size: 0.85rem;
+}
+.table tr.is-off td {
+  opacity: 0.55;
+}
+.table tr.is-off td.col-actions {
+  opacity: 1;
+}
+
+/* One card for each record on a phone */
+.record-card {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.record-card.is-off {
+  opacity: 0.7;
+}
+.record-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.record-card__head strong {
+  font-size: 1.05rem;
+}
+.record-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+.record-card__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 4px;
+}
+.record-card__actions .btn {
+  padding: 8px 10px;
+  line-height: 1.2;
+  text-align: center;
+  white-space: normal;
+}
+
+/* Page controls */
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 20px;
+  margin-top: 18px;
+}
+.pager__info {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+.pager__pages {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pager__btn {
+  min-width: 38px;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
+}
+.pager__btn:hover:not([disabled]) {
+  border-color: var(--border-strong);
+  background: var(--surface-3);
+}
+.pager__btn[aria-current="page"] {
+  border-color: rgba(61, 220, 151, 0.5);
+  background: rgba(61, 220, 151, 0.14);
+  color: var(--accent);
+}
+.pager__btn[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.pager__gap {
+  padding: 0 4px;
+  color: var(--muted);
+}
+.pager__status {
+  display: none;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* Admin top bar and its menu: only on phones (see the 860px rules below) */
+.staff-topbar,
+.staff-menu {
+  display: none;
+}
+.staff-topbar .nav-toggle {
+  display: none;
+}
+
+/* Driver panel */
+.driver-shell {
+  min-height: 100vh;
+  padding-bottom: 84px;
+}
+.driver-top__right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.driver-main {
+  padding-bottom: 32px;
+}
+.driver-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+.driver-map {
+  position: sticky;
+  top: calc(var(--nav-h) + 16px);
+  height: min(70vh, 560px);
+}
+.vehicle-hero {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border-color: rgba(61, 220, 151, 0.28);
+  background:
+    radial-gradient(360px 200px at 0% 0%, var(--accent-glow), transparent 72%),
+    var(--surface);
+}
+.vehicle-hero__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 88px;
+  height: 88px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface-2);
+  color: var(--accent);
+}
+.driver-tabs {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 700;
+  display: flex;
+  justify-content: space-around;
+  padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--border-strong);
+  background: rgb(var(--surface-rgb) / 0.94);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+.driver-tabs a {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  min-width: 84px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 500;
+}
+.driver-tabs a:hover {
+  color: var(--text);
+  text-decoration: none;
+}
+.driver-tabs a[aria-current="page"] {
+  background: rgba(61, 220, 151, 0.1);
+  color: var(--accent);
+}
+
+@media (max-width: 960px) {
+  .two-col,
+  .driver-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* On a phone the driver sees the vehicle, the ride and the Start button first. The map comes after. */
+  .driver-map {
+    position: relative;
+    top: 0;
+    height: 260px;
+  }
+}
+
+@media (max-width: 860px) {
+  /* On a phone the form opens as a full page, sliding up over the screen, instead of floating in the middle. */
+  .sheet__panel {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    translate: none;
+    width: auto;
+    max-height: none;
+    padding: 16px var(--gutter) calc(32px + env(safe-area-inset-bottom));
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    animation: sheet-in 320ms var(--ease-out);
+  }
+  /* The title and the X stay at the top while the form scrolls under them. */
+  .sheet__head {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    margin: -16px calc(var(--gutter) * -1) 16px;
+    padding: 16px var(--gutter) 12px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  /* Tables give way to cards, and the page controls shrink to Prev, "Page 2 of 5", Next. */
+  .data-table {
+    display: none;
+  }
+  .data-cards {
+    display: grid;
+    gap: 12px;
+  }
+  .list-toolbar .field--search,
+  .list-toolbar .field--category {
+    flex: 1 1 100%;
+    max-width: none;
+  }
+  .pager {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  .pager__pages {
+    justify-content: space-between;
+  }
+  .pager__num,
+  .pager__gap {
+    display: none;
+  }
+  .pager__status {
+    display: block;
+  }
+
+  /* Top bar with a hamburger, like the client site. The menu drops down under it. */
+  .staff-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 800;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: var(--nav-h);
+    padding: 0 var(--gutter);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .staff-topbar .nav-toggle {
+    display: inline-grid;
+  }
+  .staff-menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    display: grid;
+    gap: 4px;
+    max-height: calc(100vh - var(--nav-h));
+    overflow-y: auto;
+    padding: 12px var(--gutter) 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    box-shadow: 0 24px 40px rgb(var(--shade) / 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition:
+      opacity var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out),
+      visibility 0s linear var(--dur-base);
+  }
+  .staff-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
+  .staff-menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .staff-menu a:hover {
+    color: var(--text);
+    background: rgb(var(--wash) / 0.05);
+    text-decoration: none;
+  }
+  .staff-menu a[aria-current="page"] {
+    color: var(--accent);
+    background: rgba(61, 220, 151, 0.1);
+  }
+  .staff-menu a .badge-count {
+    margin-left: auto;
+  }
+  .staff-menu__user {
+    display: grid;
+    gap: 10px;
+    margin-top: 8px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .staff-menu__user .chip {
+    width: fit-content;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  /* Dialogs (like the driver's login details) also fill the screen on a phone. */
+  .modal {
+    padding: 0;
+    place-items: stretch;
+  }
+  .modal .modal__panel {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    padding: 20px var(--gutter) calc(28px + env(safe-area-inset-bottom));
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  /* A page title that is a long place name: the status goes above it and the name gets a smaller size. */
+  .app-top--stack {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .app-top--stack > :first-child {
+    width: 100%;
+  }
+  .detail-title {
+    font-size: 1.3rem !important;
+    line-height: 1.25;
+  }
+
+  /* Admin overview numbers: the first full width, then two per row. */
+  .staff .kpi-grid--5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .staff .kpi__value {
+    font-size: 1.8rem;
+  }
+  .staff a.kpi .muted {
+    font-size: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .assignment {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .reason-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .reason-form .btn {
+    margin-top: 0;
+  }
+  .driver-logout {
+    display: none;
+  }
+
+  /* Filter chips stay on one line and scroll sideways, instead of taking five rows. */
+  .staff .filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    max-width: 100%;
+    scrollbar-width: none;
+  }
+  .staff .filters::-webkit-scrollbar {
+    display: none;
+  }
+  .staff .filter-chip {
+    flex: none;
+    white-space: nowrap;
+  }
+  .staff .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .staff .toolbar .field {
+    min-width: 0 !important; /* the page sets a minimum width inline for laptops */
+  }
+
+  /* Table rows become compact cards:
+       Client ........................ Status
+       Route (full width)
+       When .......................... Needs
+       Assigned vehicle and driver */
+  .staff .table-wrap {
+    padding: 0; /* the generic phone rule for .card would otherwise add 18px around the cards */
+    background: none;
+    border: 0;
+  }
+  .table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .table,
+  .table tbody {
+    display: grid;
+    gap: 10px;
+  }
+  .table tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4px 12px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--surface);
+  }
+  .table td {
+    display: block;
+    padding: 0;
+    border: 0;
+    text-align: left;
+  }
+  .table td::before {
+    display: none;
+  }
+  .table td[data-label="Client"] {
+    grid-column: 1;
+    grid-row: 1;
+    font-weight: 600;
+  }
+  .table td[data-label="Status"] {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+  .table td[data-label="Route"] {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    min-width: 0;
+  }
+  .table td[data-label="When"] {
+    grid-column: 1;
+    grid-row: 3;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .table td[data-label="Needs"] {
+    grid-column: 2;
+    grid-row: 3;
+    justify-self: end;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .table td[data-label="Assigned"] {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    font-size: 0.85rem;
+  }
+  .table td[data-label="Fare"] {
+    display: none;
+  }
+}
+
+/* Start and end codes */
+.otp-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+  margin-top: 16px;
+  padding: 14px 16px;
+  border: 1px solid rgba(61, 220, 151, 0.3);
+  border-radius: 14px;
+  background: rgba(61, 220, 151, 0.07);
+}
+.otp-box__help {
+  max-width: 34ch;
+  margin-top: 2px;
+  font-size: 0.82rem;
+}
+.otp-code {
+  display: flex;
+  gap: 8px;
+}
+.otp-code__digit {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 56px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: var(--accent);
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+.otp-form {
+  display: grid;
+  gap: 8px;
+}
+.otp-form__input {
+  max-width: 220px;
+  font-size: 1.5rem;
+  letter-spacing: 0.4em;
+  text-align: center;
+}
+@media (max-width: 560px) {
+  .otp-box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .otp-box__help {
+    max-width: none;
+  }
+  .otp-code {
+    justify-content: center;
+  }
+  .otp-form__input {
+    max-width: none;
+  }
+}
+
+/* Support: below this width the list and the chat do not fit side by side (the admin sidebar takes room too).
+   The chat then gets the whole width: the list alone, or the open conversation alone. */
+@media (max-width: 1100px) {
+  /* With nothing open, show just the list. The "Pick a conversation" card only matters beside the list. */
+  .support[data-open="false"] .support__chat {
+    display: none;
+  }
+
+  .support {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .support__list {
+    position: static;
+    max-height: none;
+  }
+  /* An open conversation replaces the list. */
+  .support[data-open="true"] .support__list {
+    display: none;
+  }
+  .chat__back {
+    display: inline-flex;
+  }
+  .chat {
+    height: max(480px, calc(100dvh - 190px));
+  }
+  .chat__head {
+    padding: 14px 16px 0;
+  }
+  .chat__list {
+    padding: 4px 16px;
+  }
+  .chat__form,
+  .chat__closed {
+    padding-inline: 16px;
+  }
+  .chat__title {
+    font-size: 1.05rem;
+  }
+  .chat__meta {
+    font-size: 0.78rem;
+  }
+}
+
+/* Beside the sidebar, a laptop-sized window has too little room for the full table (the action buttons got cut off).
+   Up to 1279px the lists use cards, in as many columns as fit. */
+@media (max-width: 1279px) {
+  .data-table {
+    display: none;
+  }
+  .data-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: 12px;
+  }
+}
+.record-card__actions .btn {
+  white-space: nowrap;
+}
+
+/* The requests table also turns into cards up to 1279px, for the same reason: the seven columns do not fit beside the sidebar. */
+@media (max-width: 1279px) {
+  .staff .table-wrap {
+    padding: 0;
+    background: none;
+    border: 0;
+  }
+  .table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .table,
+  .table tbody {
+    display: grid;
+    gap: 10px;
+  }
+  .table tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4px 12px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--surface);
+  }
+  .table td {
+    display: block;
+    padding: 0;
+    border: 0;
+    text-align: left;
+  }
+  .table td::before {
+    display: none;
+  }
+  .table td[data-label="Client"] {
+    grid-column: 1;
+    grid-row: 1;
+    font-weight: 600;
+  }
+  .table td[data-label="Status"] {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+  .table td[data-label="Route"] {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    min-width: 0;
+  }
+  .table td[data-label="When"] {
+    grid-column: 1;
+    grid-row: 3;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .table td[data-label="Needs"] {
+    grid-column: 2;
+    grid-row: 3;
+    justify-self: end;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .table td[data-label="Assigned"] {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    font-size: 0.85rem;
+  }
+  .table td[data-label="Fare"] {
+    display: none;
+  }
+}
+
+/* Theme toggle */
+.theme-toggle {
+  flex: none;
+  width: 40px;
+  height: 40px;
+}
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+.sidebar__foot .sidebar__theme {
+  margin-bottom: 10px;
+}
+.staff-menu__user .theme-toggle {
+  width: 44px;
+  height: 44px;
+}
+.staff-login {
+  position: relative;
+}
+.staff-login__theme {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
